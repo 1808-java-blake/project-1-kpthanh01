@@ -6,5 +6,13 @@ import {SqlUser} from "../dto/sql-user";
  */
 
 export function userConverter(user: SqlUser){
-    return new User(user.user_id, user.username, undefined, user.role);
+    return new User(
+        user.user_id, 
+        user.username, 
+        undefined, 
+        user.firstname, 
+        user.lastname, 
+        user.email, 
+        user.user_role_id
+    );
 }
