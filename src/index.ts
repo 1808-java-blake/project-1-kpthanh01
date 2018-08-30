@@ -3,6 +3,7 @@ import path from 'path';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import { userRouter } from './routers/user-router';
+import { reimbRouter } from './routers/reimb-router';
 
 // create the app object from express
 const app = express();
@@ -45,6 +46,7 @@ app.use(bodyParser.json());
  ********************************************************************************************/
 
 app.use('/users', userRouter);
+app.use('/reimbursement', reimbRouter);
 
 const server = app.listen(port, () => {
     console.log(`App is running at http://localhost:${app.get('port')} in ${app.get('env')} mode`)

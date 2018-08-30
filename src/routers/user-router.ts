@@ -17,18 +17,47 @@ userRouter.get('', async (req, res) => {
     }
 });
 
-// userRouter.get('', async (req, res) => {
-//     try {
-        
-//     } catch (err) {
-        
-//     }
-// });
+/**
+ * Find user by id
+ */
+userRouter.get('/:id', async (req, res) => {
+    const id = +req.params.id;
+    console.log(`retreiving user with id ${id}`);
+    try {
+        let user = await userDao.findById(id);
+        if(user != undefined){
+            res.json(user);
+        } else {
+            res.sendStatus(400);
+        }
+    } catch (err) {
+        res.sendStatus(500);
+    }
+});
+
+/**
+ * Find user by username and password
+ */
+userRouter.post('/login', async (req, res) => {
+    try {
+        const user = await userDao.findByUsernameAndPassword(req.body.username, req.body.password);
+
+        if(user) {
+            req.session.user = user;
+            res.json(user);
+        } else {
+            res.sendStatus(401);
+        }
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+});
 
 /**
  * Add a new user
  */
-userRouter.post('', async (req, res) => {
+userRouter.post('/register', async (req, res) => {
     console.log('creating user');
     try {
         const id = await userDao.create(req.body);
@@ -39,19 +68,3 @@ userRouter.post('', async (req, res) => {
         res.sendStatus(500);
     }
 });
-
-// userRouter.post('', async (req, res) => {
-//     try {
-        
-//     } catch (err) {
-        
-//     }
-// });
-
-// userRouter.post('', async (req, res) => {
-//     try {
-        
-//     } catch (err) {
-        
-//     }
-// });

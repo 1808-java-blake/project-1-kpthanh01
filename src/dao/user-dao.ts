@@ -21,6 +21,27 @@ export async function create(user: User): Promise<number> {
     }
 }
 
+/**
+ * Retreive a single user by username and password, will also retreive all of their reimbursements
+ */
+export async function findByUsernameAndPassword(username: string, password: string): Promise<User> {
+    const client = await connectionPool.connect();
+
+    try {
+        const res = await client.query(
+            `SELECT * FROM reimbursement.reimb_user u
+            WHERE u.username = $1 
+            AND u.password = $2`,
+            [username, password]
+        );
+        if(res.rows.length !== 0) {
+            return userConverter(res.rows[0]);
+        }
+        return null;
+    } finally {
+        client.release();
+    }
+}
 
 /**
  * Retreive all users from the DB along with all their reimbursement
@@ -31,7 +52,7 @@ export async function findAll(): Promise<User[]> {
       const resp = await client.query(
         `SELECT * FROM reimbursement.reimb_user`);
   
-      // extract the users and their movies from the result set
+      // extract the users from the result set
       const users = [];
       resp.rows.forEach((user_result) => {
         const user = userConverter(user_result);
@@ -46,11 +67,21 @@ export async function findAll(): Promise<User[]> {
 /**
  * Retreive a single user by id from the DB along with all their reimbursement
  */
+export async function findById(id: number): Promise<User> {
+    const client = await connectionPool.connect();
+    try{
+       const res = await client.query(
+           `SELECT * FROM reimbursement.reimb_user u
+           WHERE u.user_id = $1`,
+           [id]
+        );
+        const user = userConverter(res.rows[0]);
+        return user;
+    } finally {
+        client.release();
+    }
+}
 
-
-/**
- * Retreive a single user by username and password, will also retreive all of their reimbursements
- */
 
 
 
