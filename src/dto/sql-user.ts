@@ -6,4 +6,5 @@ export class SqlUser{
     lastname = '';
     email = '';
     user_role_id = 0;
+    user_role = '';
 }

@@ -9,7 +9,7 @@ export const userRouter = express.Router();
 userRouter.get('', async (req, res) => {
     try {
         console.log('retrieving all users');
-        let users = await userDao.findAll();
+        let users = await userDao.findAllUsers();
         res.json(users);
     } catch (err) {
         console.log(err);
@@ -24,7 +24,7 @@ userRouter.get('/:id', async (req, res) => {
     const id = +req.params.id;
     console.log(`retreiving user with id ${id}`);
     try {
-        let user = await userDao.findById(id);
+        let user = await userDao.findUserById(id);
         if(user != undefined){
             res.json(user);
         } else {

@@ -9,7 +9,7 @@ export const reimbRouter = express.Router();
 reimbRouter.get('', async (req, res) => {
     try {
         console.log('retrieving all reimbursement tickets');
-        let reimb = await reimbDao.findAll();
+        let reimb = await reimbDao.findReimbAll();
         res.json(reimb);
     } catch (err) {
         console.log(err);
@@ -39,7 +39,7 @@ reimbRouter.get('/:id', async (req, res) => {
     const id = +req.params.id;
     console.log(`retrieving movie with ${id}`);
     try {
-        let reimb = await reimbDao.findById(id);
+        let reimb = await reimbDao.findReimbById(id);
         if(reimb !== undefined) {
             res.json(reimb);
         } else {

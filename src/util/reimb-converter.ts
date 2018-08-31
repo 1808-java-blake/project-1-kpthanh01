@@ -11,6 +11,8 @@ export function reimbConverter(reimb: SqlReimb){
         reimb.author,
         reimb.resolver,
         reimb.reimb_status_id,
-        reimb.reimb_type_id
+        reimb.reimb_status,
+        reimb.reimb_type_id,
+        reimb.reimb_type
     );
 }
