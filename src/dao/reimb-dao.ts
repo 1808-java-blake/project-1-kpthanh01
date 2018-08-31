@@ -48,10 +48,28 @@ export async function createReimbursement(reimb: Reimbursement): Promise<number>
     try {
         const res = await client.query(
             `INSERT INTO reimbursement.reimbursement_ticket
-            (amount, submitted, description, author, reimb_status_id, reimb_type_id)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            (amount, submit_date, description, author_id, reimb_status, reimb_type)
+            VALUES ($1, current_date, $2, $3, 'Pending', $4)
             RETURNING reimb_id`,
-            [reimb.amount, reimb.submitted, reimb.description, reimb.author, 3, reimb.typeId]
+            [reimb.amount, reimb.description, reimb.authorId, reimb.reimbType]
+        );
+        return res.rows[0].reimb_id;
+    } finally {
+        client.release();
+    }
+}
+
+/**
+ * Update reimbursement by id from the database
+ */
+export async function updateReimbursement(resolverId: number, status: string, reimbId: number): Promise<number>{
+    const client = await connectionPool.connect();
+    try {
+        const res = await client.query(
+            `UPDATE reimbursement.reimbursement_ticket rt
+                SET resolve_date = current_date, resolver_id = $1, reimb_status = $2 
+                WHERE rt.reimb_id = $3`,
+            [resolverId, status, reimbId]
         );
         return res.rows[0].reimb_id;
     } finally {

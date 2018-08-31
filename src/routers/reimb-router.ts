@@ -37,7 +37,7 @@ reimbRouter.post('', async (req, res) => {
  */
 reimbRouter.get('/:id', async (req, res) => {
     const id = +req.params.id;
-    console.log(`retrieving movie with ${id}`);
+    console.log(`retrieving reimbursement ticket with ${id}`);
     try {
         let reimb = await reimbDao.findReimbById(id);
         if(reimb !== undefined) {
@@ -54,3 +54,20 @@ reimbRouter.get('/:id', async (req, res) => {
  /**
  * Update Reimbursement ticket by id
  */
+reimbRouter.patch('/update/:id', async (req, res) => {
+    const id = +req.params.id;
+    const resolverId = req.body.resolver;
+    const statusId = req.body.status;
+    console.log(`updating reimbursement ticket with ${id}`);
+    try {
+        let reimb = await reimbDao.updateReimbursement(resolverId, statusId, id);
+        if(reimb !== undefined) {
+            res.json(reimb);
+        } else {
+            res.sendStatus(400);
+        }
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+})

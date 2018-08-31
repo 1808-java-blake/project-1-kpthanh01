@@ -4,27 +4,23 @@ export class Reimbursement {
     submitted = '';
     resolved = '';
     description = '';
-    author = 0;
-    resolver = 0;
-    statusId = 0;
+    authorId = 0;
+    resolverId = 0;
     reimbStatus = '';
-    typeId = 0;
     reimbType = '';
 
 
     constructor(id?: number, amount?: number, submitted?: string, resolved?: string, 
-        description?: string, author?: number, resolver?: number, statusId?: number, 
-        reimbStatus?: string, typeId?: number,  reimbType?: string){
+        description?: string, authorId?: number, resolverId?: number, 
+        reimbStatus?: string, reimbType?: string){
             id && (this.id = id);
             amount && (this.amount = amount);
             submitted && (this.submitted = submitted);
             resolved && (this.resolved = resolved);
             description && (this.description = description);
-            author && (this.author = author);
-            resolver && (this.resolver = resolver);
-            statusId && (this.statusId = statusId);
+            authorId && (this.authorId = authorId);
+            resolverId && (this.resolverId = resolverId);
             reimbStatus && (this.reimbStatus = reimbStatus);
-            typeId && (this.typeId = typeId);
             reimbType && (this. reimbType =  reimbType);
     }
 }

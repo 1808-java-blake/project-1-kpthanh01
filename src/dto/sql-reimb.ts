@@ -1,13 +1,11 @@
 export class SqlReimb {
     reimb_id = 0;
     amount = 0;
-    submitted = '';
-    resolved = '';
+    submit_date = '';
+    resolve_date = '';
     description = '';
-    author = 0;
-    resolver = 0;
-    reimb_status_id = 0;
-    reimb_status = ''
-    reimb_type_id = 0;
+    author_id = 0;
+    resolver_id = 0;
+    reimb_status = '';
     reimb_type = '';
 }
