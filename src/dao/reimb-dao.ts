@@ -10,7 +10,8 @@ export async function findReimbAll(): Promise<Reimbursement[]> {
     const client = await connectionPool.connect();
     try {
         const res = await client.query(
-            `SELECT * FROM reimbursement.reimbursement_ticket`
+            `SELECT * FROM reimbursement.reimbursement_ticket
+            ORDER BY reimb_status DESC`
         );
         return res.rows.map(reimbConverter);
     } finally {
@@ -71,7 +72,8 @@ export async function updateReimbursement(resolverId: number, status: string, re
                 WHERE rt.reimb_id = $3`,
             [resolverId, status, reimbId]
         );
-        return res.rows[0].reimb_id;
+        // console.log(res);
+        return 1;
     } finally {
         client.release();
     }

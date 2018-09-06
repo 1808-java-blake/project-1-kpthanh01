@@ -1,10 +1,13 @@
-function login(event) {
+function register(event) {
     event.preventDefault();
     let username = document.getElementById('inputUsername').value;
     let password = document.getElementById('inputPassword').value;
+    let firstname = document.getElementById('inputFirstname').value;
+    let lastname = document.getElementById('inputLastname').value;
+    let email = document.getElementById('inputEmail').value;
   
-    const credentials = { username, password };
-    fetch('http://localhost:3000/users/login', {
+    const credentials = { username, password, firstname, lastname, email };
+    fetch('http://localhost:3000/users/register', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -14,23 +17,20 @@ function login(event) {
       body: JSON.stringify(credentials)
     })
       .then(res => {
+          console.log(res);
         if (res.status === 401) {
           document.getElementById('error-message').innerText = 'Invalid Credentials';
-        } else if (res.status === 200) {
-          return res.json();
+        } else if (res.status === 201) {
+          return res;
         } else {
           document.getElementById('error-message').innerText = 'Failed to Login at this time';
         }
-        throw 'Failed to login';
+        throw 'Failed to create account';
       })
       .then(res => {
         console.log(res);
-        localStorage.setItem('user', JSON.stringify(res));
-        if(res.role === 'admin'){
-          window.location = 'http://localhost:3000/admin/admin-home/adminHome.html';
-        } else if(res.role === 'employee'){
-          window.location = 'http://localhost:3000/employee/emp-home/empHome.html';
-        }
+        // localStorage.setItem('user', JSON.stringify(res));
+        window.location = 'http://localhost:3000/login-page/login.html';
       })
       .catch(err => {
         console.log(err);

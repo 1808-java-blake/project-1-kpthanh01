@@ -56,11 +56,9 @@ reimbRouter.get('/:id', async (req, res) => {
  */
 reimbRouter.patch('/update/:id', async (req, res) => {
     const id = +req.params.id;
-    const resolverId = req.body.resolver;
-    const statusId = req.body.status;
     console.log(`updating reimbursement ticket with ${id}`);
     try {
-        let reimb = await reimbDao.updateReimbursement(resolverId, statusId, id);
+        let reimb = await reimbDao.updateReimbursement(req.body.resolverId, req.body.status, id);
         if(reimb !== undefined) {
             res.json(reimb);
         } else {

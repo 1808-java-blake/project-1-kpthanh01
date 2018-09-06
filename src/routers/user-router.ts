@@ -61,7 +61,7 @@ userRouter.post('/register', async (req, res) => {
     console.log('creating user');
     try {
         const id = await userDao.create(req.body);
-        res.status(201);
+        res.sendStatus(201);
         res.json(id);
     } catch (err) {
         console.log(err);

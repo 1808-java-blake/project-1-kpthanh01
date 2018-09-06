@@ -12,17 +12,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    <link href="signup.css" rel="stylesheet">
   </head>
 
-  <body class="text-center signin-container">
-    <form class="form-signin" onsubmit="login(event)">
+  <body class="text-center signup-container">
+    <form class="form-signin" onsubmit="register(event)">
       <!-- <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputUsername" class="sr-only">Username</label>
       <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <label for="inputFirstname" class="sr-only">Firstname</label>
+      <input type="text" id="inputFirstname" class="form-control" placeholder="Firstname" required>
+      <label for="inputLastname" class="sr-only">Lastname</label>
+      <input type="text" id="inputLastname" class="form-control" placeholder="Lastname" required>
+      <label for="inputEmail" class="sr-only">Email</label>
+      <input type="text" id="inputEmail" class="form-control" placeholder="Email" required>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
@@ -32,6 +38,6 @@
       <p id="error-message"></p>
     </form>
 
-    <script src="login.js"></script>
+    <script src="register.js"></script>
   </body>
 </html>
