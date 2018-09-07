@@ -17,9 +17,9 @@ fetch(`http://localhost:3000/reimbursement`)
     .then(res => res.json())
     .then(res => {
         console.log(res);
-        res.forEach(ticket => {
-            addAllReimbToTable(ticket);
-        })
+        // res.forEach(ticket => {
+        //     addAllReimbToTable(ticket);
+        // })
     })
     .catch(err => {
         console.log(err)

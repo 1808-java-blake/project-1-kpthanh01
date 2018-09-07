@@ -7,11 +7,11 @@ function createReimb(event) {
   const user = JSON.parse(localStorage.getItem('user'));
   const authorId = user.id;
   const amount = document.getElementById('input-amount').value;
-  let reimbType;
+  let reimbTypeId;
   const radios = document.getElementsByName('reimbType');
   for(let i = 0; i < radios.length; i++){
     if(radios[i].checked === true){
-      reimbType = radios[i].value;
+      reimbTypeId = +radios[i].value;
     }
   }
   
@@ -20,12 +20,12 @@ function createReimb(event) {
   const reimb = {
     description,
     amount,
-    reimbType,
+    reimbTypeId,
     authorId,
   }
   console.log(reimb);
   
-  fetch('http://localhost:3000/reimbursement', {
+  fetch('http://localhost:3000/reimbursement/create', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

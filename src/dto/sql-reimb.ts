@@ -6,6 +6,8 @@ export class SqlReimb {
     description = '';
     author_id = 0;
     resolver_id = 0;
+    reimb_status_id = 0;
     reimb_status = '';
+    reimb_type_id = 0;
     reimb_type = '';
 }

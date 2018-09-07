@@ -11,8 +11,8 @@ export async function create(user: User): Promise<number> {
     try {
         const res = await client.query(
             `INSERT INTO reimbursement.reimb_user
-            (username, password, firstname, lastname, email, role)
-            VALUES ($1, $2, $3, $4, $5, 'employee')
+            (username, password, firstname, lastname, email, user_role_id)
+            VALUES ($1, $2, $3, $4, $5, 2)
             RETURNING user_id`,
             [user.username, user.password, user.firstname, user.lastname, user.email]
         );
@@ -31,8 +31,10 @@ export async function findByUsernameAndPassword(username: string, password: stri
     try {
         const res = await client.query(
             `SELECT * FROM reimbursement.reimb_user ru
-            LEFT JOIN reimbursement.reimbursement_ticket rt
+            LEFT JOIN reimbursement.reimb_ticket rt
             ON ru.user_id = rt.author_id
+            LEFT JOIN reimbursement.user_role ro
+            ON ru.user_role_id = ro.user_role_id
             WHERE ru.username = $1 
             AND ru.password = $2`,
             [username, password]
@@ -80,9 +82,11 @@ export async function findUserById(id: number): Promise<User> {
     try {
         const res = await client.query(
             `SELECT * FROM reimbursement.reimb_user ru
-                LEFT JOIN reimbursement.reimbursement_ticket rt
-                ON ru.user_id = rt.author_id
-                WHERE ru.user_id = $1`,
+            LEFT JOIN reimbursement.reimb_ticket rt
+            ON ru.user_id = rt.author_id
+            LEFT JOIN reimbursement.user_role ro
+            ON ru.user_role_id = ro.user_role_id
+            WHERE ru.user_id = $1`,
             [id]
         );
         const user = userConverter(res.rows[0]);

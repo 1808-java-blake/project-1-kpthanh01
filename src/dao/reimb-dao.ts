@@ -10,8 +10,11 @@ export async function findReimbAll(): Promise<Reimbursement[]> {
     const client = await connectionPool.connect();
     try {
         const res = await client.query(
-            `SELECT * FROM reimbursement.reimbursement_ticket
-            ORDER BY reimb_status DESC`
+            `SELECT * FROM reimbursement.reimb_ticket r
+            LEFT JOIN reimbursement.reimb_type rt
+            ON r.reimb_type_id = rt.reimb_type_id
+            LEFT JOIN reimbursement.reimb_status st
+            ON r.reimb_status_id = st.reimb_status_id`
         );
         return res.rows.map(reimbConverter);
     } finally {
@@ -26,7 +29,7 @@ export async function findReimbById(id: number): Promise<Reimbursement>{
     const client = await connectionPool.connect();
     try {
         const res = await client.query(
-            `SELECT * FROM reimbursement.reimbursement_ticket
+            `SELECT * FROM reimbursement.reimb_ticket
             WHERE reimb_id = $1`, 
             [id]
         );
@@ -48,11 +51,11 @@ export async function createReimbursement(reimb: Reimbursement): Promise<number>
     const client = await connectionPool.connect();
     try {
         const res = await client.query(
-            `INSERT INTO reimbursement.reimbursement_ticket
-            (amount, submit_date, description, author_id, reimb_status, reimb_type)
-            VALUES ($1, current_date, $2, $3, 'Pending', $4)
+            `INSERT INTO reimbursement.reimb_ticket
+            (amount, submit_date, description, author_id, reimb_status_id, reimb_type_id)
+            VALUES ($1, localtimestamp(0), $2, $3, 3, $4)
             RETURNING reimb_id`,
-            [reimb.amount, reimb.description, reimb.authorId, reimb.reimbType]
+            [reimb.amount, reimb.description, reimb.authorId, reimb.reimbTypeId]
         );
         return res.rows[0].reimb_id;
     } finally {
@@ -67,8 +70,8 @@ export async function updateReimbursement(resolverId: number, status: string, re
     const client = await connectionPool.connect();
     try {
         const res = await client.query(
-            `UPDATE reimbursement.reimbursement_ticket rt
-                SET resolve_date = current_date, resolver_id = $1, reimb_status = $2 
+            `UPDATE reimbursement.reimb_ticket rt
+                SET resolve_date = current_date, resolver_id = $1, reimb_status_id = $2 
                 WHERE rt.reimb_id = $3`,
             [resolverId, status, reimbId]
         );

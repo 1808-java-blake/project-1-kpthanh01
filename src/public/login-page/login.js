@@ -26,9 +26,9 @@ function login(event) {
       .then(res => {
         console.log(res);
         localStorage.setItem('user', JSON.stringify(res));
-        if(res.role === 'admin'){
+        if(res.role === 'Administrator'){
           window.location = 'http://localhost:3000/admin/admin-home/adminHome.html';
-        } else if(res.role === 'employee'){
+        } else if(res.role === 'Employee'){
           window.location = 'http://localhost:3000/employee/emp-home/empHome.html';
         }
       })
