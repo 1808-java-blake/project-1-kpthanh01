@@ -35,6 +35,10 @@ export async function findByUsernameAndPassword(username: string, password: stri
             ON ru.user_id = rt.author_id
             LEFT JOIN reimbursement.user_role ro
             ON ru.user_role_id = ro.user_role_id
+            LEFT JOIN reimbursement .reimb_type rty
+			ON rt.reimb_type_id = rty.reimb_type_id
+            LEFT JOIN reimbursement.reimb_status rs
+			ON rt.reimb_status_id = rs.reimb_status_id
             WHERE ru.username = $1 
             AND ru.password = $2`,
             [username, password]
@@ -86,6 +90,10 @@ export async function findUserById(id: number): Promise<User> {
             ON ru.user_id = rt.author_id
             LEFT JOIN reimbursement.user_role ro
             ON ru.user_role_id = ro.user_role_id
+            LEFT JOIN reimbursement .reimb_type rty
+			ON rt.reimb_type_id = rty.reimb_type_id
+            LEFT JOIN reimbursement.reimb_status rs
+			ON rt.reimb_status_id = rs.reimb_status_id
             WHERE ru.user_id = $1`,
             [id]
         );

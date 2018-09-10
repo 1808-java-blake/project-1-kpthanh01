@@ -12,8 +12,9 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Revature</a>
+  <nav class="navbar navbar-expand-md navbar-dark">
+    <img class="logo" src="https://vignette.wikia.nocookie.net/en.futurama/images/1/13/Planet_express.png/revision/latest?cb=20130716185556">
+    <h1>STARS</h1>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,21 +27,18 @@
             <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
             <a class="dropdown-item" href="../update-reimb/updateRiemb.html">Update Reimbursement</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="../admin-create-reimb/create-reimb.html">Create Reimbursement</a>
+            <a class="dropdown-item" href="../../register-page/register.html">Create Users</a>
           </div>
         </li>
       </ul>
-      <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="text" placeholder="Search">
-      </form>
+      <div class="my-2 my-md-0"> 
+        <a href="../../login-page/login.html"><h5 style="color: white">Logout</h5></a>
+      </div>
     </div>
   </nav>
 
@@ -50,6 +48,7 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
+            <th scope="col">Name</th>
             <th scope="col">Description</th>
             <th scope="col">Amount</th>
             <th scope="col">Type</th>

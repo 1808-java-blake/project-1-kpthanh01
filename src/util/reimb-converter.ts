@@ -1,5 +1,6 @@
 import { Reimbursement } from "../model/reimbursement";
 import { SqlReimb } from "../dto/sql-reimb";
+import { runInContext } from "vm";
 
 export function reimbConverter(reimb: SqlReimb){
     return new Reimbursement(
@@ -9,6 +10,8 @@ export function reimbConverter(reimb: SqlReimb){
         reimb.resolve_date,
         reimb.description,
         reimb.author_id,
+        reimb.firstname,
+        reimb.lastname,
         reimb.resolver_id,
         reimb.reimb_status_id,
         reimb.reimb_status,

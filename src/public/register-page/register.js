@@ -7,7 +7,7 @@ function register(event) {
     let email = document.getElementById('inputEmail').value;
   
     const credentials = { username, password, firstname, lastname, email };
-    fetch('http://localhost:3000/users/register', {
+    fetch('http://localhost:8080/users/register', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -30,7 +30,7 @@ function register(event) {
       .then(res => {
         console.log(res);
         // localStorage.setItem('user', JSON.stringify(res));
-        window.location = 'http://localhost:3000/login-page/login.html';
+        window.location = 'http://localhost:8080/admin/admin-home/adminHome.html';
       })
       .catch(err => {
         console.log(err);

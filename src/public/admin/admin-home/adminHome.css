@@ -1,3 +1,11 @@
 #movie-table-container {
     margin-top: 2.5em;
   }
+
+  .navbar{
+    background-color: #da634d;
+  }
+  
+  .logo{
+    height: 65px; 
+  }

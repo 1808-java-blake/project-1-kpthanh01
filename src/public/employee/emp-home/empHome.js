@@ -12,7 +12,7 @@ function addReimbToTable(reimb) {
     `
 }
 let user = JSON.parse(localStorage.getItem('user'));
-fetch(`http://localhost:3000/users/${user.id}`)
+fetch(`http://localhost:8080/users/${user.id}`)
   .then(res => res.json())
   .then(res => {
     console.log(res);

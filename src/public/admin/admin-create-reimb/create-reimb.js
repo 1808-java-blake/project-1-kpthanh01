@@ -1,30 +1,32 @@
 console.log('loading js');
 
-function updateReimb(event) {
+function createReimb(event) {
   event.preventDefault();
 
-  const id = document.getElementById('input-id').value;
+  const description = document.getElementById('input-description').value;
   const user = JSON.parse(localStorage.getItem('user'));
-  const resolverId = user.id;
-  let statusId;
-  const radios = document.getElementsByName('statusType');
+  const authorId = user.id;
+  const amount = document.getElementById('input-amount').value;
+  let reimbTypeId;
+  const radios = document.getElementsByName('reimbType');
   for(let i = 0; i < radios.length; i++){
     if(radios[i].checked === true){
-      statusId = +radios[i].value;
+      reimbTypeId = +radios[i].value;
     }
   }
   
 
 
   const reimb = {
-    id,
-    statusId,
-    resolverId,
+    description,
+    amount,
+    reimbTypeId,
+    authorId,
   }
   console.log(reimb);
   
-  fetch(`http://localhost:8080/reimbursement/update/${id}`, {
-    method: 'PATCH',
+  fetch('http://localhost:8080/reimbursement/create', {
+    method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

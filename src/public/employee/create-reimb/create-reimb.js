@@ -25,7 +25,7 @@ function createReimb(event) {
   }
   console.log(reimb);
   
-  fetch('http://localhost:3000/reimbursement/create', {
+  fetch('http://localhost:8080/reimbursement/create', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -35,7 +35,7 @@ function createReimb(event) {
   })
   .then(resp => resp.json())
   .then(resp => {
-    window.location = 'http://localhost:3000/employee/emp-home/empHome.html';
+    window.location = 'http://localhost:8080/employee/emp-home/empHome.html';
   })
   .catch(err => {
     console.log(err);

@@ -5,6 +5,8 @@ export class SqlReimb {
     resolve_date = '';
     description = '';
     author_id = 0;
+    firstname = '';
+    lastname = '';
     resolver_id = 0;
     reimb_status_id = 0;
     reimb_status = '';

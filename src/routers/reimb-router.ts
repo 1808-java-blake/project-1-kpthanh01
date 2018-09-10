@@ -6,7 +6,7 @@ export const reimbRouter = express.Router();
 /**
  * Find all reimbursement
  */
-reimbRouter.get('', [authMiddleware('Administrator'), async (req, res) => {
+reimbRouter.get('', [/*uthMiddleware('Administrator'),*/ async (req, res) => {
     try {
         console.log('retrieving all reimbursement tickets');
         console.log(req.session);
@@ -24,7 +24,8 @@ reimbRouter.get('', [authMiddleware('Administrator'), async (req, res) => {
 reimbRouter.post('/create', async (req, res) => {
     try {
         console.log('creating reimbursement ticket');
-        const id = await reimbDao.createReimbursement(req.body);
+        let reimbId = req.session.user.id;
+        const id = await reimbDao.createReimbursement(req.body, reimbId);
         res.status(201);
         res.json(id);
     } catch (err) {
@@ -58,8 +59,10 @@ reimbRouter.get('/:id', async (req, res) => {
 reimbRouter.patch('/update/:id', async (req, res) => {
     const id = +req.params.id;
     console.log(`updating reimbursement ticket with ${id}`);
+    console.log(req.session);
     try {
-        let reimb = await reimbDao.updateReimbursement(req.body.resolverId, req.body.status, id);
+        let resolverId = req.session.user.id;
+        let reimb = await reimbDao.updateReimbursement(resolverId, req.body.statusId, id);
         if(reimb !== undefined) {
             res.json(reimb);
         } else {

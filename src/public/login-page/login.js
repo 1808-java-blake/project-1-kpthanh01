@@ -4,7 +4,7 @@ function login(event) {
     let password = document.getElementById('inputPassword').value;
   
     const credentials = { username, password };
-    fetch('http://localhost:3000/users/login', {
+    fetch('http://localhost:8080/users/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -27,9 +27,9 @@ function login(event) {
         console.log(res);
         localStorage.setItem('user', JSON.stringify(res));
         if(res.role === 'Administrator'){
-          window.location = 'http://localhost:3000/admin/admin-home/adminHome.html';
+          window.location = 'http://localhost:8080/admin/admin-home/adminHome.html';
         } else if(res.role === 'Employee'){
-          window.location = 'http://localhost:3000/employee/emp-home/empHome.html';
+          window.location = 'http://localhost:8080/employee/emp-home/empHome.html';
         }
       })
       .catch(err => {
